@@ -11,7 +11,7 @@ app.post('/api', async (req, res) => {
 
 const PORT = 5000
 
-async function start() {
+function start() {
   try {
     app.listen(PORT, () => console.log(`App has been started in port ${PORT}`))
   } catch (e) {
