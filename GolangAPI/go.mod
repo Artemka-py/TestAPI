@@ -1,4 +1,4 @@
-module apitest
+module testApi
 
 go 1.15
 

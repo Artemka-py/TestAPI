@@ -1,13 +1,28 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"encoding/json"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+)
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
+	fmt.Println("server started!!!")
 	r.POST("/api/:text", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"text": c.Param("text"),
-		})
+		var obj interface{}
+
+		bytes, _ := json.Marshal(c.Param("text"))
+		err := json.Unmarshal(bytes, &obj)
+		if err != nil {fmt.Println("Can't deserislize", err)}
+		bytes2, _ := json.Marshal(obj)
+		err2 := json.Unmarshal(bytes2, &obj)
+		if err2 != nil {fmt.Println("Can't deserislize", err2)}
+		c.JSON(http.StatusOK, obj)
 	})
-	r.Run()
+	r.Run(":8080")
 }

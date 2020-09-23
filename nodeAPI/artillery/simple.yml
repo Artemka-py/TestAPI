@@ -1,0 +1,15 @@
+config:
+  target: http://172.30.226.37:5000/api
+  phases:
+    - duration: 60
+      arrivalRate: 1000
+  payload:
+    path: 'test.csv'
+    fields:
+      - 'text'
+scenarios:
+  - flow:
+      - post:
+          url: '/artillerytest'
+          json:
+            text: '{{ text }}'
